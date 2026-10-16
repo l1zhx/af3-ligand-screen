@@ -1,0 +1,2 @@
+# Analysis/demo dependencies. AF3 uses its own separately installed environment.
+numpy>=1.26,<3

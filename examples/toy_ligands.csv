@@ -1,0 +1,5 @@
+id,inchikey,smiles,source_name
+1,LFQSCWFLJHTTHZ-UHFFFAOYSA-N,CCO,ethanol_example
+2,QTBSBXVTEAMEQO-UHFFFAOYSA-N,CC(=O)O,acetic_acid_example
+3,UHOVQNZJYSORNB-UHFFFAOYSA-N,c1ccccc1,benzene_example
+4,ISWSIDIOOBJBQZ-UHFFFAOYSA-N,Oc1ccccc1,phenol_example
