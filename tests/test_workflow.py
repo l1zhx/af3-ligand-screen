@@ -108,10 +108,21 @@ class WorkflowTest(unittest.TestCase):
             self.assertEqual(call.call_count, 1)
         marker = bundle/'results/000/lig_000001/seed_1/complete.json'
         self.assertTrue(marker.is_file())
-        job = next((bundle/'jobs').glob('*/*.json'))
-        job.write_text(job.read_text() + ' ')
-        with patch.dict(os.environ, env), self.assertRaisesRegex(SystemExit, 'Failed inputs'):
-            w.run(args)
+        # Directory iteration order differs across filesystems. Mutate the exact
+        # input selected by this task, not an arbitrary JSON from the bundle.
+        plan = json.loads(args.plan.read_text())
+        planned_input = plan['batches'][args.batch][args.task * plan['chunk_size']]
+        job = Path(planned_input['path'])
+        self.assertEqual(job.name, 'bcat_lig_000001_seed_1.json')
+        self.assertEqual(w.digest(job), planned_input['sha256'])
+        changed = json.loads(job.read_text())
+        changed['modelSeeds'] = [2]
+        job.write_text(json.dumps(changed), encoding='utf-8')
+        self.assertNotEqual(w.digest(job), planned_input['sha256'])
+        with patch.dict(os.environ, env), patch('workflow.subprocess.run') as call:
+            with self.assertRaisesRegex(SystemExit, 'Failed inputs'):
+                w.run(args)
+            call.assert_not_called()
 
     @unittest.skipUnless(os.name == 'posix', 'fcntl locking targets Linux')
     def test_exclusive_lock(self):
