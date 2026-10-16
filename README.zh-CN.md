@@ -42,6 +42,6 @@ python -m unittest discover -s tests -v
 
 `merge_af3_glide.py` 接收既有 docking 聚类表，通过标准化母体结构匹配，而不依赖两个流程编号恰好相同。若 docking 表只含 Top 1 万，未匹配的 AF3 配体不应直接判为阴性。详见 [方法与限制](docs/METHODS.md)。
 
-## 用于 AI4S 求职
+## AI4S
 
-重点展示科研问题、数据追踪、GPU 作业调度、失败诊断、结构评价和可复现性。英文首页适合招聘者快速查看，中文指南用于实际复现。[作品集说明](docs/PORTFOLIO.md) 提供简历表述、GitHub 上传步骤和 Profile README 片段。所有吞吐量、成功率和命中率应来自实际审计；不要把脚本设置的并行上限写成实测性能。
+展示科研问题、数据追踪、GPU 作业调度、失败诊断、结构评价和可复现性。英文首页适合快速查看，中文指南用于实际复现。[作品集说明](docs/PORTFOLIO.md) 提供GitHub 上传步骤和 Profile README 片段。所有吞吐量、成功率和命中率应来自实际审计；不要把脚本设置的并行上限写成实测性能。
